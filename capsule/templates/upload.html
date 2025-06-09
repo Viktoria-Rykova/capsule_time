@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="upload-card">
+            <h3>Загрузить данные для капсулы времени</h3>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Поле для названия капсулы -->
+                <div class="form-group">
+                    <label for="capsule_title">Название капсулы:</label>
+                    <input type="text" id="capsule_title" name="title" placeholder="Введите название капсулы" required>
+                </div>
+
+                <!-- Поле для текста описания -->
+                <div class="form-group">
+                    <label for="description">Описание:</label>
+                    <textarea id="description" name="description" rows="5" placeholder="Введите описание капсулы" required></textarea>
+                </div>
+
+                <!-- Поле для загрузки файла (фото, видео и т.д.) -->
+                <div class="form-group">
+                    <label for="file">Загрузить файл:</label>
+                    <input type="file" id="file" name="file" accept="image/*,video/*" required>
+                </div>
+
+                <!-- Поле для ввода электронной почты -->
+                <div class="form-group">
+                    <label for="email">Электронная почта:</label>
+                    <input type="email" id="email" name="email" placeholder="Введите почту для отправки капсулы" required>
+                </div>
+
+                <!-- Поле для срока хранения капсулы -->
+                <div class="form-group">
+                    <label for="storage_duration">Срок хранения (в годах):</label>
+                    <input type="number" id="storage_duration" name="storage_duration" placeholder="Введите срок хранения капсулы" required min="1">
+                </div>
+
+                <!-- Кнопка для отправки данных -->
+                <a href="{% url 'payment' %}" class="button">Оплатить</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

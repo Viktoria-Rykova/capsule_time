@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма</title>
+</head>
+<body>
+    <h1>Добавление капсулы</h1>
+
+    {% if success %}
+        <p style="color:green;">Форма успешно отправлена!</p>
+        <ul>
+            <li>Название: {{ data.title }}</li>
+            <li>Описание: {{ data.description }}</li>
+            <li>Цена: {{ data.price }}</li>
+            <li>Скидка: {{ data.discount }}</li>
+            <li>Слаг: {{ data.slug }}</li>
+            <li>Теги: {{ data.tags }}</li>
+        </ul>
+        <hr>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Проверить</button>
+    </form>
+</body>
+</html>

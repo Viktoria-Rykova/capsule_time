@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Секция с сентиментальным текстом -->
+    <div class="nostalgia-section">
+        <div class="nostalgia-content">
+            <!-- Текст -->
+            <div class="nostalgia-text">
+                <h2>Создайте свою электронную капсулу времени!</h2>
+                <p>Задумывались ли вы когда-нибудь, что будет с вашими воспоминаниями в будущем? С нашей помощью вы можете сохранить самые важные моменты своей жизни в <strong>электронной капсуле времени</strong>, которая откроется вам в назначенный день, чтобы вернуть все те эмоции, которые вы пережили.</p>
+                <h2>Почему это круто?</h2>
+                <ul>
+                    <li><strong>Сохранение воспоминаний:</strong> Запечатлейте моменты вашей жизни — фотографии, письма, видео — всё это будет храниться в вашей капсуле времени.</li>
+                    <li><strong>Ностальгия:</strong> Спустя годы, когда капсула откроется, вы сможете вернуться в тот момент, вспомнить, как это было важно для вас.</li>
+                    <li><strong>Послания для будущих поколений:</strong> Оставьте послания для своих детей или даже внуков, которые смогут их прочитать, когда придет время.</li>
+                    <li><strong>Цифровой формат:</strong> Всё можно хранить в цифровом виде — никаких физических ограничений! Вы можете добавить любые мультимедийные файлы.</li>
+                    <li><strong>Доступность:</strong> В любое время вы сможете обновлять или просматривать содержимое вашей капсулы.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+   <div class="container">
+        <div class="capsules">
+           {% for capsule in page_obj %}
+    {% if capsule.availability == "available" and capsule.category.id == 1 %}
+        <div class="capsule">
+            <h3>{{ capsule.title }}</h3>
+            <p><strong>Скидка:</strong> {{ capsule.discount }}%</p>
+            <p><strong>Стоимость:</strong> {{ capsule.price }} рублей</p>
+            <p><strong>Описание:</strong> {{ capsule.description.text }}</p>
+            <a href="{% url 'upload' %}" class="button">Выбрать</a>
+        </div>
+    {% endif %}
+{% endfor %}
+
+        </div>
+         {% if is_paginated %}
+          <div class="pagination">
+            {% if page_obj.has_previous %}
+              <a href="?page={{ page_obj.previous_page_number }}">← Предыдущая</a>
+            {% endif %}
+
+            {% for num in paginator.page_range %}
+              {% if num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+                {% if num == page_obj.number %}
+                  <span class="current">{{ num }}</span>
+                {% else %}
+                  <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+              <a href="?page={{ page_obj.next_page_number }}">Следующая →</a>
+            {% endif %}
+          </div>
+        {% endif %}
+   </div>
+{% endblock %}
+

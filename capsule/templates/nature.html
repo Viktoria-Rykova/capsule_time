@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="nostalgia-section">
+    <div class="nostalgia-content">
+        <div class="nostalgia-text">
+            <h2>Создайте свою физическую капсулу времени!</h2>
+            <p>Задумывались ли вы когда-нибудь, как сохранить важные моменты своей жизни на долгие годы? С нашей помощью вы можете собрать <strong>физическую капсулу времени</strong>, которая откроется в назначенный день и подарит вам эмоции прошлого, запечатлённые в вещах и письмах.</p>
+            <h2>Почему это особенное?</h2>
+            <ul>
+                <li><strong>Осязаемые воспоминания:</strong> Сложите в капсулу письма, фотографии, небольшие предметы — всё, что имеет для вас ценность и расскажет историю.</li>
+                <li><strong>Ностальгия и эмоции:</strong> Спустя годы, открыв капсулу, вы вновь прикоснётесь к тому времени и почувствуете, как это было важно.</li>
+                <li><strong>Послания в будущее:</strong> Оставьте записки и подарки для будущих поколений — детей, внуков, друзей.</li>
+                <li><strong>Надёжное хранение:</strong> Капсула изготовлена из прочных материалов и защищает содержимое от времени и внешних воздействий.</li>
+                <li><strong>Уникальный подарок:</strong> Это необычный и трогательный способ отметить важную дату, юбилей или событие.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="capsules">
+       {% for capsule in available_capsules %}
+            {% if capsule.availability == "available" and capsule.category.id == 2 %}
+                <div class="capsule">
+                    <h3>{{ capsule.title }}</h3>
+                    <p><strong>Скидка:</strong> {{ capsule.discount }}%</p>
+                    <p><strong>Стоимость:</strong> {{ capsule.price }} рублей</p>
+                    <p><strong>Описание:</strong> {{ capsule.description.text }}</p>
+                    <a href="{% url 'upload' %}" class="button">Выбрать</a>
+                </div>
+            {% endif %}
+       {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">← Предыдущая</a>
+        {% endif %}
+
+        {% for num in paginator.page_range %}
+            {% if num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+                {% if num == page_obj.number %}
+                    <span class="current">{{ num }}</span>
+                {% else %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Следующая →</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="review-section">
+    <h2>Редактировать отзыв</h2>
+    <form method="post" class="review-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Сохранить</button>
+    </form>
+  </div>
+{% endblock %}

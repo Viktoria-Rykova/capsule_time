@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Капсулы с тегом: "{{ tag.name }}"</h2>
+
+<div class="capsules">
+    {% for capsule in capsules %}
+        <div class="capsule">
+            <h3>{{ capsule.title }}</h3>
+            <p><strong>Тип:</strong> {{ capsule.category.name }}</p>
+            <p><strong>Скидка:</strong> {{ capsule.discount }}%</p>
+            <p><strong>Стоимость:</strong> {{ capsule.price }} рублей</p>
+            <p><strong>Описание:</strong> {{ capsule.description }}</p>
+            <a href="{% url 'upload' %}" class="button">Выбрать</a>
+        </div>
+    {% empty %}
+        <p>Нет доступных капсул с этим тегом.</p>
+    {% endfor %}
+</div>
+{% endblock %}

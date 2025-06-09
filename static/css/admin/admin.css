@@ -1,0 +1,343 @@
+:root {
+    --primary: #D2B48C;         /* основной бежевый */
+    --primary-dark: #8B6B4A;    /* тёмно-бежевый */
+    --primary-light: #e6d1b1;   /* светло-бежевый */
+    --accent: #caa472;          /* акцент */
+    --background: #f5e9dc;      /* общий фон */
+    --text: #3f3228;            /* тёплый тёмно-бежевый (на 2 тона темнее) */
+}
+
+
+/* Общие стили */
+body {
+    background-color: var(--background);
+    color: var(--text);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Заголовки */
+h1 {
+    color: var(--primary-dark);
+}
+
+/* Заголовок админки */
+#header {
+    background-color: var(--primary);
+    border-bottom: 2px solid var(--primary-dark);
+}
+
+#site-name a {
+    color: var(--background);
+    font-weight: bold;
+}
+
+#site-name a:hover {
+    color: var(--primary-light);
+    text-decoration: none;
+}
+
+/* Кнопки */
+.button, input[type=submit], input[type=button] {
+    background-color: var(--accent);
+    color: var(--background);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Таблицы */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: var(--primary-light);
+    color: var(--text);
+}
+
+th {
+    background-color: var(--primary);
+    color: var(--background);
+}
+
+td {
+    background-color: var(--primary);
+    color: var(--text);
+    padding: 8px;
+    border: 1px solid var(--primary-dark);
+}
+
+/* Формы */
+fieldset {
+    border: 1px solid var(--primary);
+    padding: 10px;
+    background-color: var(--primary-light);
+    margin-bottom: 15px;
+}
+
+fieldset legend {
+    color: var(--primary-dark);
+    font-weight: bold;
+}
+
+/* Боковое меню */
+#nav-sidebar {
+    background-color: var(--primary-light);
+    padding: 10px;
+}
+
+#nav-sidebar a {
+    color: var(--text);
+    padding: 6px;
+    display: block;
+    border-radius: 4px;
+}
+
+#nav-sidebar a:hover {
+    background-color: var(--accent);
+    color: var(--background);
+}
+
+/* Последние действия */
+#recent-actions-module {
+    background-color: var(--primary);
+    color: var(--text);
+    padding: 10px;
+    border: 1px solid var(--primary-dark);
+    border-radius: 6px;
+}
+
+#recent-actions-module h2 {
+    color: var(--primary-dark);
+}
+
+#recent-actions-module li {
+    color: var(--text);
+}
+a.addlink {
+    color: black !important;
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary-dark);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.addlink:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+a.changelink {
+    color: black !important;
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary-dark);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.changelink:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* Блок с последними действиями */
+#content-related,
+#recent-actions-module {
+    background-color: var(--primary-light);
+    color: var(--text-color);
+    border: 1px solid var(--primary-dark);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+/* Заголовки внутри блока */
+#recent-actions-module h2,
+#recent-actions-module h3 {
+    color: var(--primary-dark);
+}
+
+/* Список действий */
+#recent-actions-module .actionlist li {
+    background-color: var(--primary);
+    color: var(--text-color);
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    border-radius: 4px;
+}
+
+/* Ссылки внутри списка */
+#recent-actions-module .actionlist li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Дополнительный текст под ссылкой */
+#recent-actions-module .mini.quiet {
+    color: var(--primary-dark);
+    font-size: 12px;
+}
+
+a.adminlink {
+    color: black !important;
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary-dark);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+a.adminlink:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+th a {
+    color: #8B4513 !important; /* Тёмно-коричневый */
+    font-weight: bold;
+    text-decoration: none;
+}
+
+th a:hover {
+    text-decoration: underline;
+}
+
+
+ul.object-tools li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+ul.object-tools li a.addlink {
+    color: #F5E1C9; /* светло-бежевый текст */
+    background-color:  #e6d1b1;; /* средне-коричневый фон кнопки */
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+ul.object-tools li a.addlink:hover {
+    background-color: #A9746E; /* светло-коричневый при наведении */
+    color: #FFF;
+}
+
+/* Фон и цвет текста для блока с действиями */
+div.actions {
+    background-color: #F5E1C9; /* светло-бежевый фон */
+    padding: 10px;
+    border-radius: 5px;
+    color: #5B4636; /* тёмно-коричневый текст */
+    font-weight: 600;
+}
+
+/* Стиль для выпадающего списка и кнопки внутри блока действий */
+div.actions select,
+div.actions button.button {
+    background-color: #EDE2C8; /* светло-бежевый */
+    color: #5B4636;
+    border: 1px solid #C4B092;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-weight: 600;
+}
+
+div.actions button.button:hover {
+    background-color: #D9CFA7;
+    cursor: pointer;
+}
+
+/* Заголовки таблицы */
+thead th {
+    background-color: #F5E1C9;
+    color: #5B4636;
+    border-bottom: 2px solid #C4B092;
+    font-weight: 700;
+}
+
+/* Пагинация */
+p.paginator {
+    background-color: #F5E1C9;
+    color: #5B4636;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+#nav-filter {
+    background-color: #F5E1C9; /* светло-бежевый фон */
+    color: #5B4636; /* тёмно-коричневый текст */
+    border: 1px solid #C4B092; /* бордер бежевого оттенка */
+    padding: 5px 10px;
+    border-radius: 5px;
+    outline: none;
+    font-weight: 600;
+}
+
+#nav-filter::placeholder {
+    color: #9C8B6B; /* светло-коричневый цвет подсказки */
+}
+
+#nav-filter:focus {
+    border-color: #A58351; /* чуть более тёмный бордер при фокусе */
+    box-shadow: 0 0 5px #A58351;
+}
+
+.paginator {
+    color: #5B4636;          /* тёмно-коричневый цвет текста */
+    background-color: #F5E1C9; /* светло-бежевый фон, если нужен */
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+fieldset.module.aligned {
+    background-color: #F5E1C9; /* светло-бежевый фон */
+    padding: 20px;
+    border: 1px solid #C2A87D; /* бежево-коричневая рамка */
+    border-radius: 6px;
+    color: #5B4636; /* тёмно-коричневый цвет текста */
+    font-family: Arial, sans-serif;
+}
+
+fieldset.module.aligned label {
+    color: #5B4636; /* цвет текста для меток */
+    font-weight: 600;
+}
+
+fieldset.module.aligned input[type="text"],
+fieldset.module.aligned input[type="number"],
+fieldset.module.aligned input[type="file"],
+fieldset.module.aligned textarea {
+    background-color: #FAF0E6; /* очень светлый бежевый фон для полей */
+    border: 1px solid #C2A87D;
+    color: #5B4636;
+    padding: 6px 8px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+fieldset.module.aligned input[type="text"]:focus,
+fieldset.module.aligned input[type="number"]:focus,
+fieldset.module.aligned input[type="file"]:focus,
+fieldset.module.aligned textarea:focus {
+    border-color: #A67843; /* чуть темнее при фокусе */
+    outline: none;
+    background-color: #FFF5E1;
+}
+
+.flex-container {
+    margin-bottom: 15px;
+}

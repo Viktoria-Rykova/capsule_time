@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="payment-card">
+            <h3>Оплата капсулы времени</h3>
+
+            <form method="POST">
+                {% csrf_token %}
+                
+                <!-- Поле для номера карты -->
+                <div class="form-group">
+                    <label for="card_number">Номер карты:</label>
+                    <input type="text" id="card_number" name="card_number" placeholder="Введите номер карты" required>
+                </div>
+
+                <!-- Поле для имени владельца карты -->
+                <div class="form-group">
+                    <label for="card_holder">Владелец карты:</label>
+                    <input type="text" id="card_holder" name="card_holder" placeholder="Имя владельца" required>
+                </div>
+
+                <!-- Поле для даты окончания действия карты -->
+                <div class="form-group">
+                    <label for="expiry_date">Срок действия (мм/гг):</label>
+                    <input type="text" id="expiry_date" name="expiry_date" placeholder="ММ/ГГ" required>
+                </div>
+
+                <!-- Поле для CVC кода -->
+                <div class="form-group">
+                    <label for="cvc">CVC код:</label>
+                    <input type="text" id="cvc" name="cvc" placeholder="CVC" required>
+                </div>
+
+                <!-- Кнопка для отправки формы -->
+                <button type="submit" class="button">Оплатить</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

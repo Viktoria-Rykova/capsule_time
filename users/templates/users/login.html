@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 400px;">
+    <h2 class="mb-4 text-center">Вход</h2>
+    <form method="post" class="border p-4 rounded shadow-sm bg-light">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_username" class="form-label">Email:</label>
+            <input type="text" name="username" id="id_username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="id_password" class="form-label">Пароль:</label>
+            <input type="password" name="password" id="id_password" class="form-control" required>
+        </div>
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+        <button type="submit" class="btn btn-primary w-100">Войти</button>
+    </form>
+
+    <div class="text-center mt-3">
+        <p><a href="{% url 'users:password_reset' %}">Забыли пароль?</a></p>
+        <p><a href="{% url 'users:register' %}">Нет аккаунта? Зарегистрируйтесь</a></p>
+    </div>
+</div>
+{% endblock %}

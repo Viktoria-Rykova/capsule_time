@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>Профиль пользователя</h2>
+     {% if user.photo %}
+  <p><img src="{{ user.photo.url }}" style="max-width: 200px; height: auto;"></p>
+    {% else %}
+    <p><img src="{{ default_image }}" style="max-width: 200px; height: auto;"></p>
+{% endif %}
+
+    <form method="post" class="profile-form">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="form-error global-error">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        {% for f in form %}
+            <div class="form-group">
+                <label for="{{ f.id_for_label }}" class="form-label">{{ f.label }}:</label>
+                {{ f }}
+                {% if f.errors %}
+                    <div class="form-error">
+                        {{ f.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <hr>
+        <p ><a href="{% url 'users:password_change' %}">Сменить пароль</a></p>
+        <div class="form-actions">
+            <button type="submit" class="btn">Сохранить</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

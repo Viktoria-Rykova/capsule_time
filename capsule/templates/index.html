@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% load static %}
+
+{% block content %}
+
+<h2>На данный момент наш сайт имеет {{ capsule_count }} вида капсул</h2>
+
+
+<h2>Акции! Капсулы с большой скидкой</h2>
+<div class="high-discount-capsules" style="text-align: center;">
+  {% for capsule in high_discount_capsules %}
+    
+      <h3>{{ capsule.title }}</h3>
+      <p>Скидка: {{ capsule.discount }}%</p>
+      <p>Стоимость: {{ capsule.price }} руб.</p>
+   
+  {% empty %}
+    <p>Нет акций с высокой скидкой в данный момент.</p>
+  {% endfor %}
+</div>
+
+<div class="nostalgia-section">
+  <h2>Добро пожаловать в капсулу времени!</h2>
+  <div class="nostalgia-content" style="display: flex; gap: 20px;">
+    <div class="nostalgia-text" style="flex: 1;">
+      <p>Капсула времени – это больше, чем просто контейнер с вещами. Это окно в прошлое, наполненное эмоциями, воспоминаниями и посланиями к самому себе или будущим поколениям.</p>
+      <p>На протяжении веков люди создавали капсулы времени, заполняя их письмами, фотографиями и артефактами своего времени.</p>
+      <p>Сейчас, благодаря нашему сервису, вы можете сохранить эти драгоценные моменты как в цифровом, так и в физическом формате. Мы создаём как электронные, так и реальные капсулы времени, которые помогут вам запечатлеть важные события и когда-нибудь вновь встретиться с ними.</p>
+    </div>
+    <div class="nostalgia-image" style="flex: 1;">
+      <img src="{% static 'images/fabula-ai.png' %}" alt="Капсула времени" style="max-width: 100%;">
+    </div>
+  </div>
+</div>
+
+<h2>Самые ранние и самые последние капсулы</h2>
+<div class="container">
+  <div class="capsules" style="display: flex; gap: 40px;">
+    {% if earliest_capsule %}
+      <div class="earliest-capsule">
+        <h3>Первая созданная капсула</h3>
+        <p><strong>Название:</strong> {{ earliest_capsule.title }}</p>
+        <p><strong>Дата создания:</strong> {{ earliest_capsule.created_at }}</p>
+        <p><strong>Описание:</strong> {{ earliest_capsule.description.text|default:"Нет описания" }}</p>
+      </div>
+    {% else %}
+      <p>Первая капсула пока не создана.</p>
+    {% endif %}
+
+    {% if latest_capsule %}
+      <div class="latest-capsule">
+        <h3>Последняя созданная капсула</h3>
+        <p><strong>Название:</strong> {{ latest_capsule.title }}</p>
+        <p><strong>Дата создания:</strong> {{ latest_capsule.created_at }}</p>
+        <p><strong>Описание:</strong> {{ latest_capsule.description.text|default:"Нет описания" }}</p>
+      </div>
+    {% else %}
+      <p>Последняя капсула пока не создана.</p>
+    {% endif %}
+  </div>
+</div>
+
+<div class="review-section">
+  <h2>Оставьте свой отзыв</h2>
+  <form method="post" enctype="multipart/form-data" class="review-form">
+    {% csrf_token %}
+    <label>Имя:</label>
+    <input type="text" name="name" required>
+
+    <label>Ваш отзыв:</label>
+    <textarea name="text" rows="4" required></textarea>
+
+    <label>Оценка (1–5):</label>
+    <input type="number" name="rating" min="1" max="5" required>
+
+    <label>Прикрепить файл (опционально):</label>
+    <input type="file" name="file">
+
+    <button type="submit">Отправить отзыв</button>
+  </form>
+
+
+<div class="reviews-list">
+  {% for review in reviews %}
+    <div class="review-card" style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 10px;">
+      <strong>{{ review.name }}</strong>
+      <span class="date">({{ review.created_at|date:"d.m.Y H:i" }})</span>
+
+      {% if form and review.id == form.instance.id %}
+        <!-- Форма редактирования отзыва -->
+        <form method="post" enctype="multipart/form-data" action="{% url 'review_update' review.id %}">
+          {% csrf_token %}
+          <div>
+            {{ form.text.label_tag }}<br>
+            {{ form.text }}
+          </div>
+          <div>
+            {{ form.rating.label_tag }}<br>
+            {{ form.rating }}
+          </div>
+          <div>
+            {{ form.file.label_tag }}<br>
+            {{ form.file }}
+          </div>
+          <button type="submit">Сохранить</button>
+        </form>
+      {% else %}
+        <p>{{ review.text }}</p>
+        <p>Оценка: {{ review.rating }}</p>
+        {% if review.file %}
+          {% if review.file.url|is_image %}
+            <img src="{{ review.file.url }}" alt="Изображение" style="max-width: 300px; max-height: 300px;">
+          {% endif %}
+        {% endif %}
+
+        <!-- Кнопки редактирования и удаления -->
+        <div style="margin-top: 10px;">
+  <form method="get" action="{% url 'review_update' review.id %}" style="display:inline;">
+    <button type="submit">Редактировать</button>
+  </form>
+
+ {% if perms.capsule.delete_review %}
+  <form action="{% url 'review_delete' review.pk %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Удалить отзыв?');">Удалить</button>
+  </form>
+{% endif %}
+</div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<h2>Капсулы со скидкой (итоговая цена)</h2>
+<div class="container">
+  <div class="capsules" style="display: flex; flex-wrap: wrap; gap: 20px;">
+    {% for capsule in capsules_with_final_price %}
+      {% if capsule.availability == "available" and capsule.category.id == 1 %}
+        <div class="capsule" style="border: 1px solid #ccc; padding: 15px; border-radius: 10px; width: 300px;">
+          <h3>{{ capsule.title }}</h3>
+          <p><strong>Скидка:</strong> {{ capsule.discount }}%</p>
+          <p><strong>Цена без скидки:</strong> {{ capsule.price }} руб.</p>
+          <p><strong>Итоговая цена:</strong> {{ capsule.final_price|floatformat:2 }} руб.</p>
+          <p><strong>Выгода:</strong> {{ capsule.benefit_level }}</p>
+          <p><strong>Описание:</strong> {{ capsule.description.text|default:"Нет описания" }}</p>
+          <a href="{% url 'upload' %}" class="button">Выбрать</a>
+        </div>
+      {% endif %}
+    {% empty %}
+      <p>Нет доступных капсул с вычисленной итоговой ценой.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

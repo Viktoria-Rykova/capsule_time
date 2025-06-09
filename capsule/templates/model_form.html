@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Оставить отзыв</title>
+</head>
+<body>
+    <h1>Оставить отзыв</h1>
+
+    {% if success %}
+        <p style="color:green;">Спасибо за ваш отзыв!</p>
+        <ul>
+            <li><strong>Имя:</strong> {{ data.name }}</li>
+            <li><strong>Оценка:</strong> {{ data.rating }}</li>
+            <li><strong>Отзыв:</strong> {{ data.text }}</li>
+            {% if data.file %}
+                <li><strong>Файл:</strong> <a href="{{ data.file.url }}">{{ data.file.name }}</a></li>
+            {% endif %}
+        </ul>
+        <hr>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить</button>
+    </form>
+</body>
+</html>
